@@ -1,0 +1,111 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'jacoco'
+    id 'checkstyle'
+    id 'io.freefair.lombok' version('8.4')
+}
+
+group = 'com.biblioteca'
+version = '1.0.0'
+description = 'Sistema De Gestion De Biblioteca'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+application{
+    mainClass = 'com.biblioteca.Main'
+}
+
+repositories {
+    mavenCentral()
+}
+ext {
+    hibernateVersion = '6.4.1.Final'
+    mysqlVersion = '8.2.0'
+    h2Version = '2.2.224'
+    junitVersion = '5.10.1'
+    mockitoVersion = '5.8.0'
+    testcontainersVersion = '1.19.3'
+    slf4jVersion = '2.0.9'
+    logbackVersion = '1.4.14'
+    validationVersion = '3.0.2'
+    jakartaValidationVersion = '3.0.2'
+    flywayVersion = '10.4.1'
+    jacksonVersion = '2.16.1'
+    commonsLangVersion = '3.14.0'
+    assertjVersion = '3.25.1'
+}
+
+dependencies {
+    implementation "org.apache.commons:commons-lang3:${commonsLangVersion}"
+
+    // === JPA/HIBERNATE ===
+    implementation 'org.hibernate.orm:hibernate-core:6.4.1.Final'
+    implementation 'org.hibernate.orm:hibernate-jpamodelgen:6.4.1.Final'
+    implementation 'org.hibernate.validator:hibernate-validator:8.0.1.Final'
+    implementation "jakarta.persistence:jakarta.persistence-api:3.1.0"
+
+    // === VALIDATION ===
+    implementation "org.glassfish:jakarta.el:4.0.2"  // Expression Language for validation
+    implementation 'jakarta.persistence:jakarta.persistence-api:3.1.0'
+    implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
+
+    // === DATABASE DRIVERS ===
+    implementation "com.mysql:mysql-connector-j:${mysqlVersion}"
+    implementation "com.zaxxer:HikariCP:5.1.0"  // Connection pooling
+
+    // === MIGRATION ===
+    implementation "org.flywaydb:flyway-core:${flywayVersion}"
+    implementation "org.flywaydb:flyway-mysql:${flywayVersion}"
+
+    // === LOGGING ===
+    implementation "org.slf4j:slf4j-api:${slf4jVersion}"
+    implementation "ch.qos.logback:logback-classic:${logbackVersion}"
+    implementation "ch.qos.logback:logback-core:${logbackVersion}"
+
+    // === JSON PROCESSING ===
+    implementation "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}"
+    implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
+    implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonVersion}"  // Java 8 time support
+
+    // === UTILITIES ===
+    implementation "org.apache.commons:commons-collections4:4.4"
+    implementation "commons-io:commons-io:2.15.1"
+
+    // === LOMBOK (ya incluido por el plugin, pero por claridad) ===
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    implementation 'com.h2database:h2:2.2.224'
+
+    // === TESTING ===
+    // JUnit 5
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+
+    // Mockito
+    testImplementation "org.mockito:mockito-core:${mockitoVersion}"
+    testImplementation "org.mockito:mockito-junit-jupiter:${mockitoVersion}"
+
+    // AssertJ (mejores assertions)
+    testImplementation "org.assertj:assertj-core:${assertjVersion}"
+
+    // H2 para tests
+    testImplementation "com.h2database:h2:${h2Version}"
+
+    // Testcontainers (tests con BD real)
+    testImplementation "org.testcontainers:junit-jupiter:${testcontainersVersion}"
+    testImplementation "org.testcontainers:mysql:${testcontainersVersion}"
+
+    // Lombok para tests
+    testCompileOnly 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+}
+
+
+test {
+    useJUnitPlatform()
+}
