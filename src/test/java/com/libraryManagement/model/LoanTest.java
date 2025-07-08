@@ -4,11 +4,8 @@ import com.libraryManagement.enums.CopyStatus;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.jupiter.api.Test;
-
 import static java.time.LocalDate.*;
 import static org.junit.jupiter.api.Assertions.*;
-
-
 import java.time.LocalDate;
 
 public class LoanTest extends AbstractPersistenceTest {
@@ -36,8 +33,6 @@ public class LoanTest extends AbstractPersistenceTest {
                     .copyNumber("LP-001")
                     .status(CopyStatus.AVAILABLE)
                     .build();
-
-
 
             logStep("Creación de LoanLine");
             // Crear línea de préstamo
@@ -82,8 +77,6 @@ public class LoanTest extends AbstractPersistenceTest {
             logStep("Persistiendo User");
             session.persist(user);
 
-
-
             tx.commit();
             session.clear();
 
@@ -104,7 +97,6 @@ public class LoanTest extends AbstractPersistenceTest {
             assertNotNull(persistedLoan.getId());
             assertEquals(LocalDate.of(2020, 1, 1), persistedLoan.getStartDate());
             assertEquals(LocalDate.of(2020, 1, 14), persistedLoan.getDueDate());
-
 
             // Validación de relaciones
             //LoanLine
