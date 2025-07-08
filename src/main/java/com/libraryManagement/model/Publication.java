@@ -43,7 +43,7 @@ public abstract class Publication extends BaseEntity {
     @JoinColumn(name = "genere_id", nullable = true)
     private Genre genre;
 
-    @ManyToOne(optional = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(optional = true, fetch =  FetchType.LAZY)
     @JoinColumn(name = "publisher_id", nullable = true)
     private Publisher publisher;
 

@@ -39,7 +39,7 @@ public class Publisher extends BaseEntity {
 
     @Builder.Default
     @ToString.Exclude
-    @OneToMany(mappedBy = "publisher")
+    @OneToMany(mappedBy = "publisher",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Publication> publications = new ArrayList<>();
 
     public void addPublication(Publication publication) {
