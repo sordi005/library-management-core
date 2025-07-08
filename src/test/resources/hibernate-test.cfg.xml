@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+
+        <!-- Driver JDBC para H2 -->
+        <property name="hibernate.connection.driver_class">org.h2.Driver</property>
+
+        <!-- OPCIÓN 1: Base en memoria (rápida, se borra al cerrar la JVM) -->
+        <!-- Ideal para tests rápidos sin necesidad de inspección visual -->
+        <property name="hibernate.connection.url">jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1</property>
+
+        <!-- OPCIÓN 2: Base en archivo -->
+        <!-- Crea un archivo físico ./data/testdb.mv.db que podés inspeccionar después -->
+        <!-- <property name="hibernate.connection.url">jdbc:h2:file:./data/testdb;DB_CLOSE_DELAY=-1</property> -->
+
+        <!-- Usuario y contraseña por defecto de H2 -->
+        <property name="hibernate.connection.username">sa</property>
+        <property name="hibernate.connection.password"></property>
+
+        <!-- Dialecto SQL específico para H2 -->
+        <property name="hibernate.dialect">org.hibernate.dialect.H2Dialect</property>
+
+        <!-- Muestra las sentencias SQL generadas por Hibernate en consola -->
+        <property name="hibernate.show_sql">true</property>
+
+        <!-- Formatea el SQL para que sea más legible -->
+        <property name="hibernate.format_sql">true</property>
+
+        <!-- Estrategia de creación del esquema -->
+        <!-- create: borra y crea las tablas en cada ejecución -->
+        <!-- update: intenta mantener los datos y actualizar el esquema -->
+        <property name="hibernate.hbm2ddl.auto">create</property>
+
+        <!-- Registra las entidades del modelo -->
+        <!-- Auto-discovery: mapeo automático -->
+        <!--
+        <property name="hibernate.archive.autodetection">class</property>
+        <property name="hibernate.packagesToScan">com.libraryManagement.model</property>
+        -->
+
+        <!-- Mapeo manual de entidades -->
+        <mapping class="com.libraryManagement.model.BaseEntity"/>
+        <mapping class="com.libraryManagement.model.Author"/>
+        <mapping class="com.libraryManagement.model.Book"/>
+        <mapping class="com.libraryManagement.model.Copy"/>
+        <mapping class="com.libraryManagement.model.Genre"/>
+        <mapping class="com.libraryManagement.model.Loan"/>
+        <mapping class="com.libraryManagement.model.LoanLine"/>
+        <mapping class="com.libraryManagement.model.Magazine"/>
+        <mapping class="com.libraryManagement.model.Publication"/>
+        <mapping class="com.libraryManagement.model.Publisher"/>
+        <mapping class="com.libraryManagement.model.User"/>
+        <mapping class="com.libraryManagement.model.Address"/>
+
+    </session-factory>
+</hibernate-configuration>
