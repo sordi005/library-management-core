@@ -20,9 +20,9 @@ import java.util.List;
 @SuperBuilder
 public class Loan extends BaseEntity {
 
-    @EqualsAndHashCode.Include
     @Setter(AccessLevel.NONE)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @EqualsAndHashCode.Include
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
@@ -38,13 +38,22 @@ public class Loan extends BaseEntity {
     @ToString.Exclude
     @OneToMany(mappedBy = "loan",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<LoanLine> loanLines = new ArrayList<>();
-
-    public void setUser(User user){
-        if (user == null || this.user == user || user.getLoans().contains(this)) return;
+    /**
+     * Establece el usuario para este préstamo.
+     * Mantiene la relación bidireccional y evita duplicados en la lista de préstamos del usuario.
+     */
+    public void setUser(User user) {
+        if(user == null || this.user == user) return;
         this.user = user;
-        user.addLoan(this);
-    }
+        if(!user.getLoans().contains(this)) {
+            user.addLoan(this);
+        };
 
+    }
+    /**
+     * Agrega una línea de préstamo a este préstamo.
+     * Mantiene la relación bidireccional y evita duplicados.
+     */
     public void addLoanLine(LoanLine loanLine) {
         if (this.loanLines == null || loanLines.contains(loanLine)) return;
         loanLines.add(loanLine);

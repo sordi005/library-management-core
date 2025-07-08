@@ -58,5 +58,6 @@ public class User extends BaseEntity {
         if (loan == null || loans.contains(loan))return;
         loans.add(loan);
         loan.setUser(this);
+
     }
 }

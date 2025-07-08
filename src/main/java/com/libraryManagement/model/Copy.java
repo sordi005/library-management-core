@@ -39,6 +39,10 @@ public  class Copy extends BaseEntity {
     @OneToMany(mappedBy = "copy")
     private List<LoanLine> loanLines  = new ArrayList<>();
 
+    /**
+     * Agrega una línea de préstamo a esta copia.
+     * Mantiene la relación bidireccional y evita duplicados.
+     */
     public void addLoanLine(LoanLine loanLine) {
         if (loanLines == null || loanLines.contains(loanLine))return;
         this.loanLines.add(loanLine);
