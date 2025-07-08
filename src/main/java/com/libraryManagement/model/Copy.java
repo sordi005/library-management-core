@@ -34,9 +34,9 @@ public  class Copy extends BaseEntity {
     @JoinColumn(name = "publication_id", nullable = false)
     private Publication publication;
 
-    @Builder.Default
     @ToString.Exclude
-    @OneToMany(mappedBy = "copy")
+    @OneToMany(mappedBy = "copy", cascade = CascadeType.ALL,orphanRemoval = true)
+    @Builder.Default
     private List<LoanLine> loanLines  = new ArrayList<>();
 
     /**
