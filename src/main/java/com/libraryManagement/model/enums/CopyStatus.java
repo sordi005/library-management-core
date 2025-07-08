@@ -1,4 +1,4 @@
-package com.libraryManagement.enums;
+package com.libraryManagement.model.enums;
 
 public enum CopyStatus {
     AVAILABLE,
