@@ -36,11 +36,10 @@
 
         <!-- Registra las entidades del modelo -->
         <!-- Auto-discovery: mapeo automático -->
-        <!--
         <property name="hibernate.archive.autodetection">class</property>
         <property name="hibernate.packagesToScan">com.libraryManagement.model</property>
-        -->
 
+        <!-- Si no se usa auto-discovery, se pueden mapear manualmente las entidades -->
         <!-- Mapeo manual de entidades -->
         <mapping class="com.libraryManagement.model.BaseEntity"/>
         <mapping class="com.libraryManagement.model.Author"/>
