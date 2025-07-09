@@ -1,6 +1,6 @@
 package com.libraryManagement.model;
 
-import com.libraryManagement.enums.CopyStatus;
+import com.libraryManagement.model.enums.CopyStatus;
 import java.time.LocalDate;
 
 import org.hibernate.Transaction;
@@ -55,7 +55,7 @@ public class LoanLineTest extends AbstractPersistenceTest {
             copy.addLoanLine(loanLine); // LoanLine → Copy
 
             log("Persistiendo entidades raíz user | book");
-            session.persist(user); // cascade → Loan → LoanLine
+            session.persist(user); // cascade → Loan → LoanLine°|
             session.persist(book); // cascade → Copy
 
             tx.commit();
