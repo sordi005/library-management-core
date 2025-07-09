@@ -34,33 +34,37 @@ public abstract class Publication extends BaseEntity {
 
     @Column(name = "publication_date")
     @PastOrPresent(message = "La fecha debe ser pasada o actual")
-    private LocalDate publicationDate;
+    private LocalDate publicationDate; // Fecha de publicación de la obra, no puede ser futura
 
     @Column(length = 50)
-    private String language;
-
-    @ManyToOne(fetch = FetchType.EAGER, optional = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "genere_id", nullable = true)
-    private Genre genre;
-
-    @ManyToOne(optional = true, fetch =  FetchType.LAZY)
-    @JoinColumn(name = "publisher_id", nullable = true)
-    private Publisher publisher;
+    private String language; // Idioma de la publicación (Ej: "ES", "EN", "FR")
 
     @Column(length = 100)
-    private String edition; // Edición o versión específica del material, útil para libros, revistas y tesis
-
+    private String edition; // Edición o versión específica del material.
     @Column(name = "page_count")
     private Integer pageCount; // Cantidad total de páginas del documento
 
     @Lob
     private String summary; // Breve descripción o sinopsis del contenido de la publicación
 
+    //Relacion con Genre
+    @ManyToOne(fetch = FetchType.EAGER, optional = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "genere_id", nullable = true)
+    private Genre genre;
+
+    //Relacion con Publisher
+    @Setter(AccessLevel.NONE)
+    @ManyToOne(optional = true, fetch =  FetchType.LAZY)
+    @JoinColumn(name = "publisher_id", nullable = true)
+    private Publisher publisher;
+
+    //relacion con Copy
     @Builder.Default
     @ToString.Exclude
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "publication", cascade = CascadeType.ALL)
     private Set<Copy> copies = new HashSet<>();
 
+    // Relación con Author
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "publication_author",
@@ -71,12 +75,30 @@ public abstract class Publication extends BaseEntity {
     @ToString.Exclude
     private Set<Author> authors = new HashSet<>();
 
+    /**
+     * Establece el editor para esta publicación.
+     * Mantiene la relación bidireccional y evita duplicados en la lista de publicaciones del editor.
+     */
+    public void setPublisher(Publisher publisher) {
+        if (publisher == null || this.publisher == publisher) return;
+        this.publisher = publisher;
+        if (!publisher.getPublications().contains(this)) {
+            publisher.addPublication(this);
+        }
+    }
+    /**
+     * Agrega una Copia de el libro.
+     * Mantiene la relación bidireccional y evita duplicados.
+     */
     public void addCopy(Copy copy) {
         if (copy == null || copies.contains(copy))return;
         copies.add(copy);
         copy.setPublication(this);
     }
-
+    /**
+     * Agrega un author a la lista de autores.
+     * Mantiene la relación bidireccional y evita duplicados.
+     */
     public void addAuthor(Author author) {
         if (author == null || authors.contains(author)) return;
         authors.add(author);
