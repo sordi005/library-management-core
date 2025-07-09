@@ -1,6 +1,6 @@
 package com.libraryManagement.model;
 
-import com.libraryManagement.enums.CopyStatus;
+import com.libraryManagement.model.enums.CopyStatus;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.jupiter.api.Test;
@@ -17,6 +17,7 @@ public class BookTest extends AbstractPersistenceTest {
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
         try {
+            //Creacion de entidades relacionadas
             log("Creando entidades relacionadas...");
 
             Genre genre = Genre.builder().name("Ficcion").build();
@@ -54,8 +55,8 @@ public class BookTest extends AbstractPersistenceTest {
             book.addCopy(copy);            // Book ↔ Copy
             publisher.addPublication(book); // Publisher ↔ Book
 
-            log("Persistiendo entidad Book (cascade hacia Copy, Author, Genre, Publisher)...");
-            session.persist(book);
+            log("Persistiendo entidad Publisher (cascade hacia Book : Genre,Author,Copy  )...");
+            session.persist(publisher); // Cascade : -> Book -->(Genre, Author, Copy)
 
             tx.commit();
             session.clear(); // Limpiar caché para simular acceso desde cero
