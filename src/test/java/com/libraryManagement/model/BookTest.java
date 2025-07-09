@@ -1,6 +1,6 @@
 package com.libraryManagement.model;
 
-import com.libraryManagement.enums.CopyStatus;
+import com.libraryManagement.model.enums.CopyStatus;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.jupiter.api.Test;
@@ -30,32 +30,33 @@ public class BookTest extends AbstractPersistenceTest {
                     .subTitle("Primera entrega de la saga")
                     .publicationDate(LocalDate.of(1999, 5, 1))
                     .language("ES")
-                    .isbn("978-9878000001")
-                    .edition("1ª edición en español")
-                    .genre(genre)
                     .pageCount(256)
-                    .seriesName("Harry Potter")
-                    .seriesOrder(1)
-                    .originalLanguage("EN")
                     .summary("""
                                Harry descubre que es un mago y que está destinado a asistir a Hogwarts, una escuela mágica donde entabla amistad con Ron y Hermione, 
                                y enfrentará los misterios de la piedra filosofal y el regreso del temido Lord Voldemort.
                             """)
+                    .isbn("978-9878000001").seriesName("Harry Potter")
+                    .seriesOrder(1)
+                    .edition("1ª edición en español")
+                    .originalLanguage("EN")
                     .tableOfContents("""
                                Capítulo 1: El niño que vivió
                                Capítulo 2: El vidrio que desapareció
-                               ...
-                               Capítulo final: El hombre con dos caras
+                               Capítulo 3: Carta de Hogwarts 
+                               ......  
                             """)
                     .build();
 
             log("Estableciendo relaciones bidireccionales...");
+
+            book.setGenre(genre); // Book ↔ Genre
+            book.setPublisher(publisher); //  Book ↔ Publisher
             book.addAuthor(author);         // Book ↔ Author
-            book.addCopy(copy);            // Book ↔ Copy
-            publisher.addPublication(book); // Publisher ↔ Book
+            book.addCopy(copy);             // Book ↔ Copy
 
             log("Persistiendo entidad Book (cascade hacia Copy, Author, Genre, Publisher)...");
-            session.persist(book);
+
+            session.persist(publisher); //Cascade : Publication -> Author, Genre, Copy */
 
             tx.commit();
             session.clear(); // Limpiar caché para simular acceso desde cero
