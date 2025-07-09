@@ -17,11 +17,15 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 @SuperBuilder
 public class Book extends Publication {
-
+    /**
+     * Exiende de Publication y representa un libro específico.
+     * Atributo heredado Obligatorio:
+     * - title (Título del libro)
+     */
     @EqualsAndHashCode.Include
     @NotBlank
     @Column(nullable = false,unique = true)
-    private String isbn;
+    private String isbn; // ISBN del libro, único para cada edición (Obligatorio)
 
     @Column(name = "series_name", length = 100)
     private String seriesName; // Nombre de la colección o saga a la que pertenece el libro (Ej: “Harry Potter”)
