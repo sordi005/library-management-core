@@ -30,8 +30,15 @@ public  class Copy extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private CopyStatus status;
 
-    @ManyToOne( fetch = FetchType.LAZY, optional = false)
+    /*@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "publication_id", nullable = false)
+    private Publication publication;
+    */@ManyToOne(
+            fetch = FetchType.LAZY, // carga perezosa
+            optional = false)
+    @JoinColumn(name = "publication_id",
+            nullable = false,
+            foreignKey = @ForeignKey(name = "fk_copy_publication") ) // clave foránea
     private Publication publication;
 
     @ToString.Exclude

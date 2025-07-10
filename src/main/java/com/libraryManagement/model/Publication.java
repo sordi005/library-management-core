@@ -56,9 +56,18 @@ public abstract class Publication extends BaseEntity {
     @Lob
     private String summary; // Breve descripción o sinopsis del contenido de la publicación
 
-    @Builder.Default
+    /*@Builder.Default
     @ToString.Exclude
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "publication", cascade = CascadeType.ALL)
+    private Set<Copy> copies = new HashSet<>();*/
+
+    @Builder.Default
+    @ToString.Exclude
+    @OneToMany(
+            mappedBy = "publication", // Nombre del campo en la entidad Copy
+            fetch= FetchType.LAZY, // Carga perezosa para evitar problemas de rendimiento
+            cascade={CascadeType.ALL}, // Cascada para que las copias se manejen junto con la publicación
+            orphanRemoval = true) // Eliminar copias huérfanas si se eliminan de la colección
     private Set<Copy> copies = new HashSet<>();
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
