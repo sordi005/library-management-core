@@ -1,6 +1,6 @@
 package com.libraryManagement.model;
 
-import com.libraryManagement.enums.CopyStatus;
+import com.libraryManagement.model.enums.CopyStatus;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.jupiter.api.Test;
