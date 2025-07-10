@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence" version="3.0">
+    <persistence-unit name="libraryPU" transaction-type="RESOURCE_LOCAL">
+        <!-- 📌 Clases JPA (solo ejemplos; agregá todas tus entidades reales) -->
+        <class>com.libraryManagement.model.User</class>
+        <class>com.libraryManagement.model.Book</class>
+        <class>com.libraryManagement.model.Copy</class>
+        <class>com.libraryManagement.model.Loan</class>
+        <class>com.libraryManagement.model.LoanLine</class>
+        <class>com.libraryManagement.model.Publication</class>
+        <class>com.libraryManagement.model.Magazine</class>
+        <class>com.libraryManagement.model.Author</class>
+        <class>com.libraryManagement.model.Publisher</class>
+        <class>com.libraryManagement.model.Genre</class>
+        <class>com.libraryManagement.model.Address</class>
+        <class>com.libraryManagement.model.BaseEntity</class>
+
+        <!-- ⚙️ Configuración JDBC para MySQL -->
+        <properties>
+            <!-- Conexión -->
+            <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/librarydb?useSSL=false&amp;serverTimezone=UTC"/>
+            <property name="jakarta.persistence.jdbc.user" value="root"/>
+            <property name="jakarta.persistence.jdbc.password" value="1234"/>
+
+            <!-- Proveedor JPA -->
+            <property name="jakarta.persistence.provider" value="org.hibernate.jpa.HibernatePersistenceProvider"/>
+
+            <!-- Dialecto de MySQL -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
+
+            <!-- 👁️ Mostrar SQL en consola -->
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+
+            <!--  Opciones de generación de esquema -->
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <!-- Para desarrollo puede ser “create-drop” o “create”, pero “update” evita borrar datos en cada ejecución -->
+        </properties>
+    </persistence-unit>
+</persistence>
