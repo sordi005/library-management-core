@@ -1,8 +1,9 @@
 package com.libraryManagement.model;
 
-import com.libraryManagement.enums.CopyStatus;
+import com.libraryManagement.model.enums.CopyStatus;
 import java.time.LocalDate;
 
+import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.jupiter.api.Test;
 
@@ -10,9 +11,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class LoanLineTest extends AbstractPersistenceTest {
 
- /**
-  *Test básico de creación de LoanLine
-  */
+    /**
+     *Test básico de creación de LoanLine
+     */
 
     @Test
     public void testLoanLineCreation() {
@@ -48,15 +49,19 @@ public class LoanLineTest extends AbstractPersistenceTest {
                     .dueDate(LocalDate.of(2025, 7, 21))
                     .build();
 
+
             log("Estableciendo relaciones...");
-            book.addCopy(copy);// sincroniza Copy → Book
             user.addLoan(loan); // sincroniza Loan → User
+            book.addCopy(copy);// sincroniza Copy → Book
+
+            log("Persistiendo entidades raíz user | book");
+            session.persist(book); // cascade → Copy
+            session.persist(user); // cascade → Loan → LoanLine
+
             loan.addLoanLine(loanLine); // LoanLine → Loan
             copy.addLoanLine(loanLine); // LoanLine → Copy
 
-            log("Persistiendo entidades raíz user | book");
-            session.persist(user); // cascade → Loan → LoanLine
-            session.persist(book); // cascade → Copy
+            session.persist(loanLine);
 
             tx.commit();
             session.clear();
