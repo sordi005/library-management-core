@@ -2,8 +2,6 @@ package com.libraryManagement.model;
 
 import com.libraryManagement.model.enums.CopyStatus;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import java.util.ArrayList;
@@ -13,7 +11,7 @@ import java.util.List;
 @Table(name = "copies")
 
 @Getter
-@Setter
+@Setter(AccessLevel.PROTECTED)
 @NoArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
@@ -21,19 +19,14 @@ import java.util.List;
 public  class Copy extends BaseEntity {
 
     @EqualsAndHashCode.Include
-    @NotBlank
     @Column(name = "copy_number" ,nullable = false ,unique = true)
     private String copyNumber;
 
-    @NotNull
     @Column(name = "copy_status", nullable = false)
     @Enumerated(EnumType.STRING)
     private CopyStatus status;
 
-    /*@ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "publication_id", nullable = false)
-    private Publication publication;
-    */@ManyToOne(
+    @ManyToOne(
             fetch = FetchType.LAZY, // carga perezosa
             optional = false)
     @JoinColumn(name = "publication_id",
@@ -42,8 +35,8 @@ public  class Copy extends BaseEntity {
     private Publication publication;
 
     @ToString.Exclude
-    @OneToMany(mappedBy = "copy", cascade = CascadeType.ALL,orphanRemoval = true)
     @Builder.Default
+    @OneToMany(mappedBy = "copy", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<LoanLine> loanLines  = new ArrayList<>();
 
     /**

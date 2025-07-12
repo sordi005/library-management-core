@@ -1,8 +1,6 @@
 package com.libraryManagement.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.PastOrPresent;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import java.time.LocalDate;
@@ -16,7 +14,7 @@ import java.util.Set;
     @Index(name = "idx_publication_date", columnList = "publication_date")
 })
 @Getter
-@Setter
+@Setter(AccessLevel.PROTECTED)
 @NoArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
@@ -25,18 +23,16 @@ import java.util.Set;
 public abstract class Publication extends BaseEntity {
 
     @EqualsAndHashCode.Include
-    @NotBlank(message = "El título no puede estar vacío")
-    @Column(nullable = false,length = 100)
+    @Column(nullable = false,length = 50)
     private String title;
 
-    @Column(name = "sub_title",length = 100)
+    @Column(name = "sub_title",length = 50)
     private String subTitle;
 
     @Column(name = "publication_date")
-    @PastOrPresent(message = "La fecha debe ser pasada o actual")
     private LocalDate publicationDate;
 
-    @Column(length = 50)
+    @Column(length = 15)
     private String language;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -54,12 +50,8 @@ public abstract class Publication extends BaseEntity {
     private Integer pageCount; // Cantidad total de páginas del documento
 
     @Lob
+    @Column(name = "summary", columnDefinition = "TEXT", length = 1000)
     private String summary; // Breve descripción o sinopsis del contenido de la publicación
-
-    /*@Builder.Default
-    @ToString.Exclude
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "publication", cascade = CascadeType.ALL)
-    private Set<Copy> copies = new HashSet<>();*/
 
     @Builder.Default
     @ToString.Exclude

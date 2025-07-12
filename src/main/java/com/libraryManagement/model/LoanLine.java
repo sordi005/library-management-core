@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @Table(name = "loan_lines")
 
 @Getter
-@Setter
+@Setter(AccessLevel.PROTECTED)
 @NoArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(onlyExplicitlyIncluded = false, callSuper = false)

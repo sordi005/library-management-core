@@ -4,14 +4,13 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table(name = "books")
 @Getter
-@Setter
+@Setter(AccessLevel.PROTECTED)
 @NoArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
@@ -23,7 +22,6 @@ public class Book extends Publication {
      * - title (Título del libro)
      */
     @EqualsAndHashCode.Include
-    @NotBlank
     @Column(nullable = false,unique = true)
     private String isbn; // ISBN del libro, único para cada edición (Obligatorio)
 

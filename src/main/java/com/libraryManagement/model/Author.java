@@ -10,16 +10,14 @@ import java.util.List;
 @Entity
 @Table(name = "authors")
 @Getter
-@Setter
+@Setter(AccessLevel.PROTECTED)
 @NoArgsConstructor
 @ToString(callSuper = true)
 @SuperBuilder
 public class Author extends BaseEntity {
-    @NotBlank
     @Column(nullable = false, length = 50)
     private String name;
 
-    @NotBlank
     @Column(nullable = false, length = 50)
     private String county;
 

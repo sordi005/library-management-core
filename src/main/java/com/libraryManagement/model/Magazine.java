@@ -1,13 +1,12 @@
 package com.libraryManagement.model;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table(name = "magazines")
 @Getter
-@Setter
+@Setter(AccessLevel.PROTECTED)
 @NoArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
@@ -15,7 +14,6 @@ import lombok.experimental.SuperBuilder;
 public class Magazine extends Publication {
 
     @EqualsAndHashCode.Include
-    @NotBlank
     @Column(name = "issn", nullable = false, length = 20, unique = true)
     private String issn;
 
