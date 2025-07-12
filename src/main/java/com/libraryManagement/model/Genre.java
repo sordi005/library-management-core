@@ -12,18 +12,16 @@ import lombok.experimental.SuperBuilder;
 @Entity
 
 @Getter
-@Setter
+@Setter(AccessLevel.PROTECTED)
 @ToString(callSuper = true)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true,callSuper = false)
 @NoArgsConstructor
 @SuperBuilder
 public class Genre extends BaseEntity {
     @EqualsAndHashCode.Include
-    @NotBlank
     @Column(nullable = false, length = 50)
     private String name;
 
-    @Size(max = 255)
     @Column(length = 255)
     private String description;
 }
