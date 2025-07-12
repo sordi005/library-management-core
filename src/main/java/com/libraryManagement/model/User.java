@@ -14,18 +14,12 @@ import java.util.Set;
             @Index(name = "idx_user_dni", columnList = "dni")
         })
 @Getter
-@Setter()
+@Setter(AccessLevel.PROTECTED)
 @NoArgsConstructor
 @AllArgsConstructor // Lombok annotations for boilerplate code
 @ToString(callSuper = true) // Include fields from BaseEntity in toString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false) // Exclude id from equals/hashCode
 @SuperBuilder
- /**
- * Clase que representa a un usuario del sistema.
- * <p>Extiende de BaseEntity para heredar campos comunes como id, createdAt y updatedAt.</p>
- * <p>Incluye validaciones para los campos de nombre, apellido, fecha de nacimiento, DNI, email y teléfono.</p>
- * <p>La relación con préstamos es bidireccional y se maneja mediante métodos para añadir y eliminar préstamos.</p>
-  */
 public class User extends BaseEntity {
 
     @Column(name = "first_name", nullable = false)
