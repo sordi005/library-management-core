@@ -43,7 +43,15 @@ public class User extends BaseEntity {
     private String email;
     //
     @Column(length = 16)
-    private String phone;
+    private String phoneNumber;
+
+    /**
+     * Relación con Address como objeto separado
+     * <p>La relación es opcional, puede ser null.</p>
+     */
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    private Address address;
 
     @Builder.Default
     @ToString.Exclude
