@@ -18,12 +18,18 @@ public interface UserMapper {
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
     // Entity -> DTO
+    @Mapping(target = "loanCount", expression = "java(user.getLoans().size())")
     @Mapping(target = "addressDTO", source = "address")
     UserDTO toDTO(User user);
+
+    // Para listas y referencias (masivo)
+    @Mapping(target = "loanCount", ignore = true)
+    UserDTO toBasicDTO(User user);
 
     // DTO -> Entity (para creación)
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "loans", ignore = true)
+    @Mapping(target = "loanCount", ignore = true)  // ✅ OBLIGATORIO
     @Mapping(target = "address", source = "addressDTO")
     User toEntity(UserDTO userDTO);
 
@@ -31,10 +37,12 @@ public interface UserMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "dni", ignore = true)  // ✅ Excelente - DNI inmutable
     @Mapping(target = "loans", ignore = true)
+    @Mapping(target = "loanCount", ignore = true)
     @Mapping(target = "address", source = "addressDTO")
     void updateEntityFromDTO(UserDTO userDTO, @MappingTarget User user);
 
     //Convierte una lista de entidades a una lista de DTOs
     List<UserDTO> toDTOs(List<User> users);
+
 
 }
