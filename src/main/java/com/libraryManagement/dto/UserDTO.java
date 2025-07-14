@@ -45,5 +45,8 @@ public class UserDTO {
     // Relación con Address como objeto separado
     @Valid  // Valida el objeto Address internamente
     private AddressDTO addressDTO;
+
+    private Integer loanCount;
+
 }
 
