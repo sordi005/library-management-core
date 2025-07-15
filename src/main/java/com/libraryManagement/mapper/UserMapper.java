@@ -17,7 +17,9 @@ public interface UserMapper {
 
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
-    // Entity -> DTO
+    /**
+     * DTO MAPPERS
+     */
     @Mapping(target = "loanCount", expression = "java(user.getLoans().size())")
     @Mapping(target = "addressDTO", source = "address")
     UserDTO toDTO(User user);
@@ -26,6 +28,15 @@ public interface UserMapper {
     @Mapping(target = "loanCount", ignore = true)
     UserDTO toBasicDTO(User user);
 
+    //Convierte una lista de entidades a una lista de DTOs
+    List<UserDTO> toDTOs(List<User> users);
+
+    // Convierte una lista de entidades a una lista de DTOs básicos (sin conteo de préstamos)
+    List<UserDTO> toBasicDTOs(List<User> users);
+
+    /**
+     * ENTITY MAPPERS
+     */
     // DTO -> Entity (para creación)
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "loans", ignore = true)
@@ -41,8 +52,8 @@ public interface UserMapper {
     @Mapping(target = "address", source = "addressDTO")
     void updateEntityFromDTO(UserDTO userDTO, @MappingTarget User user);
 
-    //Convierte una lista de entidades a una lista de DTOs
-    List<UserDTO> toDTOs(List<User> users);
+
+
 
 
 }
