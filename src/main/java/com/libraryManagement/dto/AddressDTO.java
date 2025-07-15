@@ -1,5 +1,6 @@
 package com.libraryManagement.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;
 import lombok.Builder;
 import lombok.Data;
@@ -32,5 +33,6 @@ public class AddressDTO {
     @NotBlank(message = "Postal code is required")
     @Size(max = 10, message = "Postal code cannot exceed 10 characters")
     @Pattern(regexp = "^[0-9A-Za-z\\s-]+$", message = "Invalid postal code format")
+    @JsonProperty("postal_code")
     private String postalCode;
 }

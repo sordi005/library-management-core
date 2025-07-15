@@ -13,7 +13,7 @@ import lombok.experimental.SuperBuilder;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false)
 @SuperBuilder
-public class Address extends BaseEntity {
+public class Address extends Base {
 
     @Column(name = "street", nullable = false, length = 30)
     private String street;
