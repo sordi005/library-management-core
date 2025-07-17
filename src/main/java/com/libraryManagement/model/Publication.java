@@ -20,7 +20,7 @@ import java.util.Set;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 @SuperBuilder
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Publication extends BaseEntity {
+public abstract class Publication extends Base {
 
     @EqualsAndHashCode.Include
     @Column(nullable = false,length = 50)
@@ -35,8 +35,9 @@ public abstract class Publication extends BaseEntity {
     @Column(length = 15)
     private String language;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "genere_id", nullable = true)
+    @Setter(AccessLevel.NONE)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "genre_id", nullable = true)
     private Genre genre;
 
     @ManyToOne(optional = true, fetch =  FetchType.LAZY)
@@ -71,17 +72,50 @@ public abstract class Publication extends BaseEntity {
     @Builder.Default
     @ToString.Exclude
     private Set<Author> authors = new HashSet<>();
+    /**
+     * Establece el género de esta publicación.
+     * Sincroniza ambos lados de la relación.
+     */
+    public void setGenre(Genre genre) {
+        // Remover del género anterior
+        if (this.genre != null) {
+            this.genre.removePublication(this);
+        }
+        this.genre = genre;
 
+        // Agregar al nuevo género
+        if (genre != null) {
+            genre.addPublication(this);
+        }
+    }
+    /**
+     * Agrega una copia a esta publicación.
+     * Sincroniza ambos lados de la relación.
+     */
     public void addCopy(Copy copy) {
         if (copy == null || copies.contains(copy))return;
         copies.add(copy);
         copy.setPublication(this);
     }
-
+    /**
+     * Agrega un autor a esta publicación.
+     * Sincroniza ambos lados de la relación.
+     */
     public void addAuthor(Author author) {
         if (author == null || authors.contains(author)) return;
         authors.add(author);
         author.addPublication(this); // sincroniza el otro lado
+    }
+    /**
+     * Remueve un autor de esta publicación.
+     * Sincroniza ambos lados de la relación.
+     */
+    public void removeAuthor(Author author) {
+        if (author == null || !authors.contains(author)) return;
+        authors.remove(author);
+        if (author.getPublications().contains(this)) {
+            author.removePublication(this);
+        }
     }
 }
 
