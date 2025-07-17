@@ -1,6 +1,7 @@
 package com.libraryManagement.model;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
@@ -9,6 +10,7 @@ import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table(name = "books")
+@DiscriminatorValue("BOOK")
 @Getter
 @Setter(AccessLevel.PROTECTED)
 @NoArgsConstructor
