@@ -1,5 +1,9 @@
 package com.libraryManagement.model;
-import jakarta.persistence.*;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -11,6 +15,8 @@ import lombok.experimental.SuperBuilder;
 @ToString(callSuper = true)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 @SuperBuilder
+@DiscriminatorValue("MAGAZINE")
+
 public class Magazine extends Publication {
 
     @EqualsAndHashCode.Include
