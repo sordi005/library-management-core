@@ -13,7 +13,7 @@
         <class>com.libraryManagement.model.Publisher</class>
         <class>com.libraryManagement.model.Genre</class>
         <class>com.libraryManagement.model.Address</class>
-        <class>com.libraryManagement.model.BaseEntity</class>
+        <class>com.libraryManagement.model.Base</class>
 
         <!-- ⚙️ Configuración JDBC para MySQL -->
         <properties>
