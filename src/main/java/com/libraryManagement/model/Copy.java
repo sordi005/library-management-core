@@ -20,7 +20,7 @@ public  class Copy extends Base {
 
     @EqualsAndHashCode.Include
     @Column(name = "copy_number" ,nullable = false ,unique = true)
-    private String copyNumber;
+    private Integer copyNumber;
 
     @Column(name = "copy_status", nullable = false)
     @Enumerated(EnumType.STRING)
