@@ -13,7 +13,7 @@ import java.util.Set;
 @ToString(callSuper=true)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 @SuperBuilder
-public class Publisher extends BaseEntity {
+public class Publisher extends Base {
 
     @EqualsAndHashCode.Include
     @Column(nullable = false)

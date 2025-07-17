@@ -20,7 +20,7 @@ import java.util.Set;
 @ToString(callSuper = true) // Include fields from BaseEntity in toString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false) // Exclude id from equals/hashCode
 @SuperBuilder
-public class User extends BaseEntity {
+public class User extends Base {
 
     @Column(name = "first_name", nullable = false)
     private String firstName;

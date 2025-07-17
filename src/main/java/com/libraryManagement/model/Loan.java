@@ -15,7 +15,7 @@ import java.util.Set;
 @ToString(callSuper = true)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 @SuperBuilder
-public class Loan extends BaseEntity {
+public class Loan extends Base {
 
     @Setter(AccessLevel.NONE)
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
