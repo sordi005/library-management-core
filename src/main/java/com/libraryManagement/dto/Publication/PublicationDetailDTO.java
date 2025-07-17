@@ -6,10 +6,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.libraryManagement.dto.Author.AuthorSimpleDTO;
 import com.libraryManagement.dto.Book.BookDetailDTO;
 import com.libraryManagement.dto.Magazine.MagazineDetailDTO;
-import com.libraryManagement.dto.Magazine.MagazineSimpleDTO;
 import com.libraryManagement.dto.Publisher.PublisherSimpleDTO;
 import com.libraryManagement.dto.genre.GenreSimpleDTO;
-import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.SuperBuilder;
 
@@ -17,13 +15,13 @@ import java.time.LocalDate;
 import java.util.Set;
 
 @Data
-@Builder
+@SuperBuilder
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
 @JsonSubTypes({
         @JsonSubTypes.Type(value = BookDetailDTO.class, name = "BOOK"),
         @JsonSubTypes.Type(value = MagazineDetailDTO.class, name = "MAGAZINE")
 })
-public class PublicationDetailDTO {
+public abstract  class PublicationDetailDTO {
         private Long id;
         private String title;
         private String subTitle;
@@ -44,6 +42,6 @@ public class PublicationDetailDTO {
         //Copy
         private Integer totalCopies; // Total number of copies available
         private Integer availableCopies; // Number of copies currently available for borrowing
-        private Integer loanCopies; // Number of copies currently on loan
+        private Integer loanedCopies; // Number of copies currently on loan
         private Integer reservedCopies; // Number of copies currently reserved
 }
