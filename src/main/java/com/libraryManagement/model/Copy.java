@@ -16,7 +16,7 @@ import java.util.List;
 @ToString(callSuper = true)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 @SuperBuilder
-public  class Copy extends BaseEntity {
+public  class Copy extends Base {
 
     @EqualsAndHashCode.Include
     @Column(name = "copy_number" ,nullable = false ,unique = true)
