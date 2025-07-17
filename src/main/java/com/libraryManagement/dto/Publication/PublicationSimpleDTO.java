@@ -6,10 +6,12 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.libraryManagement.dto.Book.BookSimpleDTO;
 import com.libraryManagement.dto.Magazine.MagazineSimpleDTO;
 import lombok.Data;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
 
 @Data
+@SuperBuilder
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
 @JsonSubTypes({
         @JsonSubTypes.Type(value = BookSimpleDTO.class, name = "BOOK"),
