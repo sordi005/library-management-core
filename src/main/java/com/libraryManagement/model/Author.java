@@ -1,11 +1,14 @@
 package com.libraryManagement.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "authors")
@@ -14,17 +17,20 @@ import java.util.List;
 @NoArgsConstructor
 @ToString(callSuper = true)
 @SuperBuilder
-public class Author extends BaseEntity {
+public class Author extends Base {
     @Column(nullable = false, length = 50)
     private String name;
 
-    @Column(nullable = false, length = 50)
+    @Column(name = "date_of_birth")
+    private LocalDate dateOfBirth;
+
+    @Column(length = 50)
     private String county;
 
     @ManyToMany(mappedBy = "authors")
     @Builder.Default
     @ToString.Exclude
-    private List<Publication> publications = new ArrayList<>();
+    private Set<Publication> publications = new HashSet<>();
 
     public void addPublication(Publication publication) {
             if (publication == null ||publications.contains(publication)) return;
@@ -32,6 +38,14 @@ public class Author extends BaseEntity {
             if (!publication.getAuthors().contains(this)) {
                 publication.addAuthor(this);
             }
+    }
+    public void removePublication(Publication publication) {
+        if (publication == null ) return;
+        if (!publications.contains(publication)) return;
+        publications.remove(publication);
+        if(publication.getAuthors().contains(this)) {
+            publication.removeAuthor(this);
+        }
     }
 
 }
