@@ -5,19 +5,23 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.libraryManagement.dto.Author.AuthorSimpleDTO;
 import com.libraryManagement.dto.Book.BookDetailDTO;
+import com.libraryManagement.dto.Magazine.MagazineDetailDTO;
 import com.libraryManagement.dto.Magazine.MagazineSimpleDTO;
 import com.libraryManagement.dto.Publisher.PublisherSimpleDTO;
 import com.libraryManagement.dto.genre.GenreSimpleDTO;
+import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
 import java.util.Set;
 
 @Data
+@Builder
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
 @JsonSubTypes({
         @JsonSubTypes.Type(value = BookDetailDTO.class, name = "BOOK"),
-        @JsonSubTypes.Type(value = MagazineSimpleDTO.class, name = "MAGAZINE")
+        @JsonSubTypes.Type(value = MagazineDetailDTO.class, name = "MAGAZINE")
 })
 public class PublicationDetailDTO {
         private Long id;
@@ -31,8 +35,8 @@ public class PublicationDetailDTO {
         private String summary;
 
         //relaciones
-        private GenreSimpleDTO Genre; // Genre of the publication
-        private PublisherSimpleDTO Publisher; // Publisher of the publication
+        private GenreSimpleDTO genre; // Genre of the publication
+        private PublisherSimpleDTO publisher; // Publisher of the publication
 
         //Authors
         private Set<AuthorSimpleDTO> authors;
