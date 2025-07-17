@@ -41,7 +41,7 @@
 
         <!-- Si no se usa auto-discovery, se pueden mapear manualmente las entidades -->
         <!-- Mapeo manual de entidades -->
-        <mapping class="com.libraryManagement.model.BaseEntity"/>
+        <mapping class="com.libraryManagement.model.Base"/>
         <mapping class="com.libraryManagement.model.Author"/>
         <mapping class="com.libraryManagement.model.Book"/>
         <mapping class="com.libraryManagement.model.Copy"/>
