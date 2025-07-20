@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class CreateCopy {
+public class CreateCopyDTO {
 
     @NotNull(message = "Copy number is required")
     @Positive(message = "Copy number must be positive")
