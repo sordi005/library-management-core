@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @ToString(callSuper = true)
 @EqualsAndHashCode(onlyExplicitlyIncluded = false, callSuper = false)
 @SuperBuilder
-public class LoanLine extends BaseEntity {
+public class LoanLine extends Base {
 
     @Setter(AccessLevel.NONE)
     @EqualsAndHashCode.Include
