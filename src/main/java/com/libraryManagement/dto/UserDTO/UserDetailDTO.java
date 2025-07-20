@@ -16,6 +16,6 @@ public class UserDetailDTO {
     private String phoneNumber;
     private AddressSimpleDTO address;
     private Set<LoanSimpleDTO>loans;
-    private String loanCount;
-    private boolean loanActive;
+    private Integer activeLoanCount;
+    private Boolean hasActiveLoans;
 }
