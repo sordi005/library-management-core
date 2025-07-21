@@ -5,10 +5,10 @@ import java.util.Optional;
 
 public interface GenericRepository <T,ID>{
 
-    void save(T entity);
+    T save(T entity);
     Optional<T> findById(ID id);
     void update(T entity);
-    void deleteById(ID id);
+    void delete(T entity);
     List<T> findAll();
     boolean existsById(ID id);
 
