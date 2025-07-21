@@ -28,6 +28,14 @@ public class Loan extends Base {
     @Column(name = "due_date", nullable = false)
     private LocalDate dueDate;
 
+    /**
+     * Fecha de devolución completa del préstamo
+     * NULL = Préstamo activo (no devuelto)
+     * Con valor = Préstamo completado
+     */
+    @Column(name = "returned_at")
+    private LocalDate returnedAt;
+
     @Builder.Default
     @ToString.Exclude
     @OneToMany(mappedBy = "loan",cascade = CascadeType.ALL,orphanRemoval = true)
