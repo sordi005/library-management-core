@@ -18,6 +18,9 @@ public class LoanSimpleDTO {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dueDate;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate returnAt;
+
     private Boolean isActive;
     private Boolean isOverdue;
     private Integer numberOfLoanLines;

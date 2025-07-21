@@ -21,6 +21,9 @@ public class LoanDetailDTO {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dueDate;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate returnAt;
+
     Set<LoanLineSimpleDTO> loanLines;
 
     //vereifica si el préstamo está activo o no

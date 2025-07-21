@@ -22,6 +22,8 @@ public class UpdateLoanDTO {
     @Future(message = "Due date must be in the future")
     private LocalDate dueDate;
 
+    private LocalDate returnAt;
+
     @NotEmpty(message = "At least one loan line is required")
     @Size(min = 1, max = 5, message = "Number of loan lines must be between 1 and 5")
     @Valid  // ✅ Validación en cascada
