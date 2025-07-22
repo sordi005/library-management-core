@@ -3,7 +3,11 @@ package com.libraryManagement.dto.AddressDTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.Builder;
+import lombok.Data;
 
+@Data
+@Builder
 public class UpdateAddressDTO {
     @NotBlank(message = "Street cannot be blank")
     @Size(max = 30, message = "Street must be at most 30 characters long")
