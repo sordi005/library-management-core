@@ -6,6 +6,7 @@ import lombok.experimental.SuperBuilder;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Stream;
 
 @Entity
 @Table(name = "users",
@@ -14,7 +15,7 @@ import java.util.Set;
             @Index(name = "idx_user_dni", columnList = "dni")
         })
 @Getter
-@Setter(AccessLevel.PROTECTED)
+@Setter // ✅ CAMBIAR A PACKAGE-PRIVATE (sin AccessLevel)
 @NoArgsConstructor
 @AllArgsConstructor // Lombok annotations for boilerplate code
 @ToString(callSuper = true) // Include fields from BaseEntity in toString
@@ -80,4 +81,44 @@ public class User extends Base {
         loan.setUser(null);
     }
 
+    // =====================================================================
+    // MÉTODOS DE CONSULTA DE ESTADO - Solo lectura del estado actual
+    // =====================================================================
+
+    /**
+     * Verifica si el usuario tiene préstamos activos
+     * @return true si tiene préstamos sin devolver
+     */
+    public boolean hasActiveLoans() {
+        return loans.stream().anyMatch(loan -> loan.getReturnedAt() == null);
+    }
+
+    /**
+     * Cuenta los préstamos activos del usuario
+     * @return número de préstamos sin devolver
+     */
+    public int getActiveLoanCount() {
+        return (int) loans.stream()
+            .filter(loan -> loan.getReturnedAt() == null)
+            .count();
+    }
+
+    /**
+     * Obtiene el nombre completo del usuario
+     * @return firstName + " " + lastName (manejo seguro de nulls)
+     */
+    public String getFullName() {
+        if (firstName == null && lastName == null) return "Sin nombre";
+        if (firstName == null) return lastName;
+        if (lastName == null) return firstName;
+        return firstName + " " + lastName;
+    }
+
+    /**
+     * Obtiene todos los préstamos activos del usuario
+     * @return stream de préstamos sin fecha de retorno
+     */
+    public Stream<Loan> getActiveLoans() {
+        return loans.stream().filter(loan -> loan.getReturnedAt() == null);
+    }
 }
