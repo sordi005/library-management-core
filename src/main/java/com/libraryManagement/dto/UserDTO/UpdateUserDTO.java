@@ -12,23 +12,20 @@ import java.time.LocalDate;
 @Builder
 public class UpdateUserDTO {
 
-    @NotBlank(message = "First name is required")
+    // ✅ CAMPOS OPCIONALES - Para actualizaciones parciales
     @Size(max = 50, message = "First name cannot exceed 50 characters")
-    private String firstName;
+    private String firstName; // Removido @NotBlank
 
-    @NotBlank(message = "Last name is required")
     @Size(max = 50, message = "Last name cannot exceed 50 characters")
-    private String lastName;
+    private String lastName; // Removido @NotBlank
 
-    @NotNull(message = "Date of birth is required")
     @Past(message = "Date of birth must be in the past")
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate dateOfBirth;
+    private LocalDate dateOfBirth; // Removido @NotNull
 
-    @NotBlank(message = "Email is required")
     @Size(max = 100, message = "Email cannot exceed 100 characters")
     @Email(message = "Email should be valid")
-    private String email;
+    private String email; // Removido @NotBlank
 
     @Pattern(regexp = "^[+]?[0-9\\s\\-\\(\\)]{8,15}$",
             message = "Phone number must be between 8-15 characters and contain only numbers, spaces, hyphens, and parentheses")
