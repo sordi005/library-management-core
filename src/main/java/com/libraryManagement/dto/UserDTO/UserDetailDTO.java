@@ -1,9 +1,12 @@
 package com.libraryManagement.dto.UserDTO;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.libraryManagement.dto.AddressDTO.AddressSimpleDTO;
 import com.libraryManagement.dto.LoanDTO.LoanSimpleDTO;
 import lombok.Builder;
 import lombok.Data;
+
+import java.time.LocalDate;
 import java.util.Set;
 
 @Data
@@ -12,6 +15,8 @@ public class UserDetailDTO {
     private Long id;
     private String firstName;
     private String lastName;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dateOfBirth;
     private String dni;
     private String email;
     private String phoneNumber;
@@ -23,5 +28,5 @@ public class UserDetailDTO {
     private String fullName;
 
     private Integer activeLoanCount;
-    private boolean loanActive;
+    private Boolean loanActive; // ✅ Cambiar de boolean a Boolean para consistencia
 }
