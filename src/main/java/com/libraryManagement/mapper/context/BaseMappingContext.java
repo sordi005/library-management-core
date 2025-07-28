@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MappingContext {
+public class BaseMappingContext {
 
     // ============= CAMPOS GENERALES (TODAS LAS ENTIDADES) =============
 
@@ -129,16 +129,16 @@ public class MappingContext {
     /**
      * Contexto mínimo - Solo datos básicos de la entidad
      */
-    public static MappingContext minimal() {
-        return MappingContext.builder().build();
+    public static BaseMappingContext minimal() {
+        return BaseMappingContext.builder().build();
     }
 
     /**
      * Contexto completo - Incluye todo
      * CUIDADO: Puede ser muy costoso en performance
      */
-    public static MappingContext complete() {
-        return MappingContext.builder()
+    public static BaseMappingContext complete() {
+        return BaseMappingContext.builder()
                 .includeFullDetails(true)
                 .includeCalculatedFields(true)
                 .includeAddress(true)
