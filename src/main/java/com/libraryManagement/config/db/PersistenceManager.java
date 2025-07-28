@@ -1,4 +1,4 @@
-package com.libraryManagement.config;
+package com.libraryManagement.config.db;
 
 import jakarta.persistence.EntityManager;
 /**  Clase auxiliar que expone un método para obtener un EntityManager
