@@ -1,4 +1,4 @@
-package com.libraryManagement.repository;
+package com.libraryManagement.repository.interfaces;
 
 import java.util.List;
 import java.util.Optional;
