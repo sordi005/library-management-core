@@ -1,15 +1,19 @@
 package com.libraryManagement.dto.UserDTO;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.libraryManagement.dto.AddressDTO.CreateAddressDTO;
 import jakarta.validation.constraints.*;
 import lombok.Builder;
 import lombok.Data;
+import lombok.extern.jackson.Jacksonized;
 
 import java.time.LocalDate;
 
 @Data
 @Builder
+@Jacksonized  // 🔥 SOLUCIÓN: Permite que Jackson use el Builder
 public class CreateUserDTO {
 
     @NotBlank(message = "First name is required")
