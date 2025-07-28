@@ -1,6 +1,6 @@
 package com.libraryManagement.mapper.base;
 
-import com.libraryManagement.mapper.context.MappingContext;
+import com.libraryManagement.mapper.context.BaseMappingContext;
 import java.util.Collection;
 import java.util.List;
 
@@ -25,25 +25,25 @@ public interface RelatedMapper<E, S, D, C, U> {
      * Mapeo simple con contexto por defecto
      */
     default S toSimpleDTO(E entity) {
-        return toSimpleDTO(entity, MappingContext.minimal());
+        return toSimpleDTO(entity, BaseMappingContext.minimal());
     }
 
     /**
      * Mapeo detallado con contexto por defecto
      */
     default D toDetailDTO(E entity) {
-        return toDetailDTO(entity, MappingContext.minimal());
+        return toDetailDTO(entity, BaseMappingContext.minimal());
     }
 
     /**
      * Mapeo simple con contexto específico
      */
-    S toSimpleDTO(E entity, MappingContext context);
+    S toSimpleDTO(E entity, BaseMappingContext context);
 
     /**
      * Mapeo detallado con contexto específico
      */
-    D toDetailDTO(E entity, MappingContext context);
+    D toDetailDTO(E entity, BaseMappingContext context);
 
     // =====================================================================
     // MAPEO DE ESCRITURA - ¡AHORA SÍ ESTÁN!
@@ -64,10 +64,10 @@ public interface RelatedMapper<E, S, D, C, U> {
     // =====================================================================
 
     default List<S> toSimpleDTOList(Collection<E> entities) {
-        return toSimpleDTOList(entities, MappingContext.minimal());
+        return toSimpleDTOList(entities, BaseMappingContext.minimal());
     }
 
-    default List<S> toSimpleDTOList(Collection<E> entities, MappingContext context) {
+    default List<S> toSimpleDTOList(Collection<E> entities, BaseMappingContext context) {
         if (entities == null) return List.of();
 
         return entities.stream()
@@ -77,10 +77,10 @@ public interface RelatedMapper<E, S, D, C, U> {
     }
 
     default List<D> toDetailDTOList(Collection<E> entities) {
-        return toDetailDTOList(entities, MappingContext.minimal());
+        return toDetailDTOList(entities, BaseMappingContext.minimal());
     }
 
-    default List<D> toDetailDTOList(Collection<E> entities, MappingContext context) {
+    default List<D> toDetailDTOList(Collection<E> entities, BaseMappingContext context) {
         if (entities == null) return List.of();
 
         return entities.stream()
