@@ -203,13 +203,6 @@ UserDetailDTO detailDTO = userMapper.toDetailDTO(user,
 
 ## 🧪 **Testing**
 
-```bash
-# Ejecutar tests
-./gradlew test
-
-# Ver reporte de cobertura
-./gradlew jacocoTestReport
-```
 
 ## 📈 **Roadmap**
 
@@ -224,15 +217,8 @@ UserDetailDTO detailDTO = userMapper.toDetailDTO(user,
 
 ## 👨‍💻 **Autor**
 
-**Santiago Sordi Gil**
-- Email: sordisantiago@gmail.com
-- LinkedIn: [Tu perfil]
-- GitHub: [Tu perfil]
+**Santiago Sordi**
+- Email: sordisantiago5@gmail.com
+- LinkedIn: https://www.linkedin.com/in/santiago-sordi-gil-9a7525327
 
-## 📄 **Licencia**
 
-Este proyecto está bajo la licencia MIT - ver [LICENSE.md](LICENSE.md) para detalles.
-
----
-
-> **"Código limpio no es escrito siguiendo reglas. Es escrito por programadores que se preocupan por hacer que el código sea legible y mantenible."** - Robert C. Martin
