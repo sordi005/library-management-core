@@ -1,6 +1,7 @@
 package com.libraryManagement.config;
 
 import com.libraryManagement.config.data.SampleDataLoader;
+import com.libraryManagement.config.db.DatabaseInitializer;
 import com.libraryManagement.config.db.JpaConfig;
 import com.libraryManagement.config.dependency.DependencyContainer;
 import com.libraryManagement.config.server.RouteRegistry;
@@ -57,15 +58,22 @@ public class ApplicationBootstrap {
      */
     private void initializeDatabase() {
         try {
-            Logger.info("ApplicationBootstrap", "Inicializando conexión a base de datos...");
+            Logger.info("ApplicationBootstrap", "📊 Inicializando conexión a base de datos...");
 
-            // Verificar que JPA se inicialice correctamente
+            //  Inicializar BD automáticamente
+            DatabaseInitializer.initializeDatabase();
+
+            //  Verificar que JPA se inicialice correctamente
             JpaConfig.getEntityManagerFactory();
 
-            Logger.success("ApplicationBootstrap", "Base de datos conectada");
+            // Mostrar información de la BD
+            DatabaseInitializer.printDatabaseInfo();
+
+            Logger.success("ApplicationBootstrap", "✅ Base de datos conectada");
 
         } catch (Exception e) {
-            throw new RuntimeException(" Error al conectar con la base de datos", e);
+            Logger.error("ApplicationBootstrap", "❌ Error al conectar con la base de datos", e);
+            throw new RuntimeException("❌ Error fatal durante el arranque", e);
         }
     }
 
